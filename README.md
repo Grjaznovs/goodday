@@ -1,7 +1,7 @@
 Docker Desktop 4.34.1
 
 ### For first time only !
-- `git clone https://github.com/Grjaznovs/goodday_back.git`
+- `git clone https://github.com/Grjaznovs/goodday.git`
 - `cd andele_mande`
 - `docker compose up -d --build`
 - `composer update`
@@ -24,4 +24,4 @@ Docker Desktop 4.34.1
 - Server: `db`
 - Username: `rootUser`
 - Password: `qwerty`
-- Database: `andele_mandele`
+- Database: `goodday`

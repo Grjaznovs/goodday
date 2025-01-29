@@ -38,7 +38,7 @@ services:
             - .docker/db/sql:/docker-entrypoint-initdb.d
         environment:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: andele_mandele
+            MYSQL_DATABASE: goodday
             MYSQL_USER: rootUser
             MYSQL_PASSWORD: qwerty
 
