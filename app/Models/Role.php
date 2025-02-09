@@ -1,17 +1,17 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Permission\Models\Role as SpatieRole;
 
-class Role extends Model
+class Role extends SpatieRole
 {
-    use SoftDeletes;
+    use HasFactory;
+    use HasUuids;
 
-    protected $table = 'roles';
+    const ADMIN = 'Admin';
+    const USER = 'User';
 
-    protected $fillable = [
-        'name', 'code'
-    ];
+//    protected $guard_name = ['user', 'admin'];
 }

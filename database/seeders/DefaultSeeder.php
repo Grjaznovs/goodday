@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
-use App\Models\Role;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Section;
 use Illuminate\Database\Seeder;
 
 class DefaultSeeder extends Seeder
@@ -16,7 +14,7 @@ class DefaultSeeder extends Seeder
     {
         $folder = base_path() . '/database/seeders/tablecsv/';
         $files = [
-            Role::class  => ['file' => 'c_roles.csv', 'key' => 'code']
+            Section::class  => ['file' => 'c_sections.csv', 'key' => 'code']
         ];
 
         foreach ($files as $className => $fileConfig) {
@@ -38,6 +36,7 @@ class DefaultSeeder extends Seeder
                             ['code' => $insertRow['code']],
                             [
                                 'name' => $insertRow['name'],
+                                'order' => $insertRow['order']
                             ]
                         );
                     } else {

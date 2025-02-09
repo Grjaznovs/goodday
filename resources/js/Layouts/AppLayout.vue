@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Banner from '@/Components/Banner.vue';
@@ -9,10 +9,17 @@ import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 
 defineProps({
-    title: String,
+    title: String
 });
 
 const showingNavigationDropdown = ref(false);
+
+const menu = ref([]);
+onMounted(() => {
+    axios.get(route('section.list')).then(response => {
+        menu.value = response.data.data;
+    });
+})
 
 const switchToTeam = (team) => {
     router.put(route('current-team.update'), {
@@ -40,28 +47,16 @@ const logout = () => {
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
-                            <div class="shrink-0 flex items-center">
-                                <Link :href="route('blog')">
+                            <div class="shrink-0 flex items-center" v-if="menu.length > 0">
+                                <Link :href="route(menu[0].code)">
                                     <ApplicationMark class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('blog')" :active="route().current('blog')">
-                                    Blog
-                                </NavLink>
-                            </div>
-
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('news')" :active="route().current('news')">
-                                    News
-                                </NavLink>
-                            </div>
-
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('role')" :active="route().current('role')">
-                                    Role
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-for="(row, key) in menu" v-bind:key="'row_' + key">
+                                <NavLink :href="row.code" :active="route().current(row.code)">
+                                    {{ row.name }}
                                 </NavLink>
                             </div>
                         </div>
@@ -202,15 +197,9 @@ const logout = () => {
 
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
-                    <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('blog')" :active="route().current('blog')">
-                            Blog
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('news')" :active="route().current('news')">
-                            News
+                    <div class="pt-2 pb-3 space-y-1" v-for="(row, key) in menu" v-bind:key="'row_' + key">
+                        <ResponsiveNavLink :href="row.code" :active="route().current(row.code)">
+                            {{ row.name }}
                         </ResponsiveNavLink>
                     </div>
 

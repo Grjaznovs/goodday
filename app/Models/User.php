@@ -9,10 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasApiTokens;
+    use HasRoles;
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
@@ -63,5 +65,31 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function session()
+    {
+        return $this->belongsTo(Session::class,'id', 'user_id');
+    }
+
+    public function blog() {
+        return $this->hasMany(Blog::class);
+    }
+
+    public function getRedirectRoute(): string
+    {
+        $route = '';
+        foreach ($this->getAllPermissions()->pluck('name') as $permission) {
+            if (str_contains($permission, 'view') && empty($route)) {
+                $string = explode( '.view', $permission);
+                $route = $string[0];
+            }
+        }
+
+        if (empty($route)) {
+            $route = 'profile.show';
+        }
+
+        return route($route);
     }
 }
