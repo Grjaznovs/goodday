@@ -9,4 +9,7 @@ class Permission extends SpatiePermission
 {
     use HasFactory;
     use HasUuids;
+
+    const BLOG_M = 'blog.manage';
+    const NEWS_M = 'news.manage';
 }

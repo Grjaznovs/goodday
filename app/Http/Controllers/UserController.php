@@ -7,7 +7,6 @@ use App\Http\Resources\UserEditResource;
 use App\Http\Resources\UserIndexResource;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -18,12 +17,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::query()->with(['roles', 'session'])->get();
-//        Log::info($users);
 
         return Inertia::render('User/Index/UserList', [
-            // ALWAYS included on standard visits
-            // ALWAYS included on partial reloads
-            // ALWAYS evaluated
             'users' => Inertia::always(UserIndexResource::collection($users)),
         ]);
     }

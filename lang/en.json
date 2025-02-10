@@ -4,12 +4,15 @@
     "role.permissions": "Permissions",
     "role.title": "Roles",
     "role.smallTitle": "A list of all roles",
+
     "permission.btn.store": "Save",
+    "permission.btn.ok": "OK",
     "permission.btn.cancel": "Cancel",
     "permission.title": "Permissions",
     "permission.smallTitle": "A list of all permissions",
     "permission.view": "View",
     "permission.manage": "Manage",
+
     "user.name": "Name",
     "user.email": "Email",
     "user.title": "Users",
@@ -17,9 +20,18 @@
     "user.btn.edit": "edit",
     "user.edit.title": "Edit user",
     "user.activity": "active",
-    "blog.btn.add": "Add",
+
     "blog.title.add": "Add Blog",
-    "section.page.title": "Title",
-    "section.page.description": "Short description",
-    "section.page.text": "Text"
+    "news.title.add": "Add News",
+    "blog.title.edit": "Edit Blog",
+    "news.title.edit": "Edit News",
+
+    "section.page.btn.add": "Add",
+    "section.page.edit.title": "Title",
+    "section.page.edit.description": "Short description",
+    "section.page.edit.text": "Text",
+    "section.page.title": "Blogs",
+    "section.page.destroy.title": "Delete",
+    "section.page.destroy.msg": "Delete a record directly",
+    "section.page.read.more": "Read more ..."
 }

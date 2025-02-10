@@ -59,10 +59,14 @@ export default {
     },
 
     methods: {
-        async show () {
+        async show (elData) {
             this.v$.$reset();
+            if (elData) {
+                this.form = this.BasicHelper.cloneObject(elData);
+            } else {
+                this.form = this.BasicHelper.cloneObject(defaultEl);
+            }
             this.modalShow = true;
-            this.form = this.BasicHelper.cloneObject(defaultEl);
         },
 
         closeModal () {

@@ -3,27 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSectionPageRequest;
-use App\Http\Resources\SectionPageShowResource;
 use App\Http\Resources\SectionPageIndexResource;
-use App\Models\Blog;
+use App\Http\Resources\SectionPageShowResource;
+use App\Models\News;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class BlogController extends Controller
+class NewsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $blogs = Blog::query()->with(['user'])->orderBy('created_at', 'desc')->get();
+        $news = News::query()->with(['user'])->orderBy('created_at', 'desc')->get();
 
         return Inertia::render('SectionPage/SectionPage', [
-            'value' => Inertia::always(SectionPageIndexResource::collection($blogs)),
-            'route' => 'blog',
-            'isManage' => Auth::user()->hasPermissionTo(Permission::BLOG_M)
+            'value' => Inertia::always(SectionPageIndexResource::collection($news)),
+            'route' => 'news',
+            'isManage' => Auth::user()->hasPermissionTo(Permission::NEWS_M)
         ]);
     }
 
@@ -32,8 +32,8 @@ class BlogController extends Controller
      */
     public function store(CreateSectionPageRequest $request)
     {
-        $blog = $request->validated();
-        Auth::user()->blog()->save(new Blog($blog));
+        $news = $request->validated();
+        Auth::user()->news()->save(new News($news));
 
         return ['data' => true];
     }
@@ -43,21 +43,21 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        $blog = Blog::query()->with('user')->where('id', $id)->first();
+        $news = News::query()->with('user')->where('id', $id)->first();
         return Inertia::render('SectionPage/ShowSectionPage', [
-            'blog' => Inertia::always(new SectionPageShowResource($blog)),
+            'blog' => Inertia::always(new SectionPageShowResource($news)),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(CreateSectionPageRequest $request, Blog $blog)
+    public function update(CreateSectionPageRequest $request, News $news)
     {
-        if (Auth::user()->id === $blog->user_id || Auth::user()->hasRole(Role::ADMIN)) {
+        if (Auth::user()->id === $news->user_id || Auth::user()->hasRole(Role::ADMIN)) {
             $data = $request->validated();
-            $blog->fill($data);
-            $blog->save();
+            $news->fill($data);
+            $news->save();
         }
 
         return ['data' => true];
@@ -66,10 +66,10 @@ class BlogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Blog $blog)
+    public function destroy(News $news)
     {
-        if (Auth::user()->id === $blog->user_id || Auth::user()->hasRole(Role::ADMIN)) {
-            $blog->delete();
+        if (Auth::user()->id === $news->user_id || Auth::user()->hasRole(Role::ADMIN)) {
+            $news->delete();
         }
     }
 }

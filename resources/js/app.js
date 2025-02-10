@@ -24,6 +24,7 @@ createInertiaApp({
                 }
             });
         app.config.globalProperties.BasicHelper = BasicHelper;
+        app.config.globalProperties.$route = route
         app.mount(el);
     },
     progress: {

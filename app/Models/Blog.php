@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Blog extends Model
 {
     use SoftDeletes;
-
     protected $table = 'blogs';
 
     protected $fillable = [
@@ -16,7 +15,7 @@ class Blog extends Model
     ];
 
     protected $casts = [
-        'created_at' => 'datetime:d.m.Y H:i',
+        'created_at' => 'datetime:D.m.Y H:i',
     ];
 
     public function user()

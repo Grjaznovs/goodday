@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
@@ -21,24 +22,27 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/news', function () {
-        return Inertia::render('News/Index/NewsList');
-    })->middleware('can:news.view')->name('news');
+    Route::group(['middleware' => ['can:news.view']], function () {
+        Route::get('/news', [NewsController::class, 'index'])->name('news');
+        Route::get('/news/{news}', [NewsController::class, 'show'])->name('news.show');
+    });
 
-//    Route::get('/blog', function () {
-//        return Inertia::render('Blog/Index/BlogList');
-//    })->middleware('can:blog.view')->name('blog');
+    Route::group(['middleware' => ['can:news.manage']], function () {
+        Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+        Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
+        Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
+    });
 
-    Route::get('/blog', [BlogController::class, 'index'])->middleware('can:blog.view')->name('blog');
+    Route::group(['middleware' => ['can:blog.view']], function () {
+        Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+        Route::get('/blog/{blog}', [BlogController::class, 'show'])->name('blog.show');
+    });
+
     Route::group(['middleware' => ['can:blog.manage']], function () {
         Route::post('/blog', [BlogController::class, 'store'])->name('blog.store');
+        Route::put('/blog/{blog}', [BlogController::class, 'update'])->name('blog.update');
+        Route::delete('/blog/{blog}', [BlogController::class, 'destroy'])->name('blog.destroy');
     });
-//      0 => 'blog.view',
-//      1 => 'blog.manage',
-//      2 => 'news.view',
-//      3 => 'news.manage',
-//      4 => 'role.view',
-//      5 => 'role.manage',
 
     Route::get('/role', [RoleController::class, 'index'])->middleware('can:role.view')->name('role');
 
@@ -50,6 +54,8 @@ Route::middleware([
     Route::get('/section', [SectionController::class, 'index'])->name('section.list');
 
     Route::group(['middleware' => ['role:Admin']], function () {
-        Route::resource('/user', UserController::class);
+        Route::get('/user', [UserController::class, 'index'])->name('user');
+        Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+        Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
     });
 });

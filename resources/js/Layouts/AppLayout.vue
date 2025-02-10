@@ -55,7 +55,7 @@ const logout = () => {
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-for="(row, key) in menu" v-bind:key="'row_' + key">
-                                <NavLink :href="row.code" :active="route().current(row.code)">
+                                <NavLink :href="route(row.code)" :active="route().current(row.code)">
                                     {{ row.name }}
                                 </NavLink>
                             </div>
@@ -198,7 +198,7 @@ const logout = () => {
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1" v-for="(row, key) in menu" v-bind:key="'row_' + key">
-                        <ResponsiveNavLink :href="row.code" :active="route().current(row.code)">
+                        <ResponsiveNavLink :href="route(row.code)" :active="route().current(row.code)">
                             {{ row.name }}
                         </ResponsiveNavLink>
                     </div>

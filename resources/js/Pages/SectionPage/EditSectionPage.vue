@@ -5,7 +5,7 @@
         <template #content>
             <fieldset>
                 <div class="py-2">
-                    <InputLabel for="title" :value="$t('section.page.title')" />
+                    <InputLabel for="title" :value="$t('section.page.edit.title')" />
                     <TextInput
                         v-model.trim="form.title"
                         type="text"
@@ -22,12 +22,8 @@
                 </div>
 
                 <div class="py-2">
-                    <InputLabel for="description" :value="$t('section.page.description')" />
-                    <textarea
-                        v-model.trim="form.description"
-                        class="rounded-md mt-1 block w-full"
-                        id="description"
-                    />
+                    <InputLabel for="description" :value="$t('section.page.edit.description')" />
+                    <textarea v-model.trim="form.description" class="rounded-md mt-1 block w-full" id="description" />
                     <template v-if="v$.form.description.$error">
                         <InputError v-if="v$.form.description.required.$invalid" class="mt-2" :message="v$.form.description.required.$message" />
                         <InputError v-if="v$.form.description.maxLengthValue.$invalid" class="mt-2" :message="v$.form.description.maxLengthValue.$message" />
@@ -35,12 +31,8 @@
                 </div>
 
                 <div class="py-2">
-                    <InputLabel for="text" :value="$t('section.page.text')" />
-                    <textarea
-                        v-model.trim="form.text"
-                        class="rounded-md mt-1 block w-full resize-y min-h-[200px]"
-                        id="text"
-                    />
+                    <InputLabel for="text" :value="$t('section.page.edit.text')" />
+                    <textarea v-model.trim="form.text" class="rounded-md mt-1 block w-full resize-y min-h-[200px]" id="text" />
                 </div>
             </fieldset>
         </template>
@@ -50,12 +42,7 @@
                 {{ $t('permission.btn.cancel') }}
             </SecondaryButton>
 
-            <PrimaryButton
-                class="ms-3"
-                :class="{ 'opacity-25': loading }"
-                :disabled="loading"
-                @click="handleSubmit"
-            >
+            <PrimaryButton class="ms-3" :class="{ 'opacity-25': loading }" :disabled="loading" @click="handleSubmit">
                 {{ $t('permission.btn.store') }}
             </PrimaryButton>
         </template>

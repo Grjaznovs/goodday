@@ -76,6 +76,10 @@ class User extends Authenticatable
         return $this->hasMany(Blog::class);
     }
 
+    public function news() {
+        return $this->hasMany(News::class);
+    }
+
     public function getRedirectRoute(): string
     {
         $route = '';
