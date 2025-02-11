@@ -13,8 +13,14 @@ Docker Desktop 4.34.1
 - `composer setup`
 - `exit`
 - `docker-compose exec php php artisan migrate`
-- `php artisan serve`
-- `API ip to backend http://127.0.0.1:8000`
+- `docker-compose exec php php artisan db:seed`
+- `npm install`
+- `npm run dev`
+
+### Admin
+ - email: `admin@gmail.com`
+ - name: `Admin`
+ - password: `qwerty`
 
 ### Laravel App
 - URL: http://localhost

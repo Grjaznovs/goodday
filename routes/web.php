@@ -6,7 +6,6 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\UserController;
-use App\Models\Section;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
